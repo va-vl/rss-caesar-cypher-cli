@@ -1,0 +1,25 @@
+{
+  "name": "rss-caesar-cypher-cli",
+  "version": "0.0.1",
+  "description": "a cli for encrypting/decrypting strings in english",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/va-z/rss-caesar-cypher-cli.git"
+  },
+  "keywords": [
+    "rolling",
+    "scopes",
+    "school",
+    "node"
+  ],
+  "author": "va-z",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/va-z/rss-caesar-cypher-cli/issues"
+  },
+  "homepage": "https://github.com/va-z/rss-caesar-cypher-cli#readme"
+}
