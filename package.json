@@ -1,8 +1,11 @@
 {
   "name": "rss-caesar-cypher-cli",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "a cli for encrypting/decrypting strings in english",
-  "main": "index.js",
+  "main": "./bin/index.js",
+  "bin": {
+    "cypher": "./bin/index.js"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

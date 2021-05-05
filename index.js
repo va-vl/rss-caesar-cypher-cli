@@ -1,1 +1,0 @@
-const { cypher } = require('./src');

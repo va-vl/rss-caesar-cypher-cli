@@ -30,11 +30,11 @@ const getNewCharacter = (character, shift) => {
 /**
  * @param {String} source - string to process
  * @param {Number} shift
- * @param {'decrypt'|'encrypt'} mode
+ * @param {'encode'|'decode'} mode
  * @returns {String}
  */
 const cypher = (source, shift, mode) => {
-  const correctedShift = mode === 'encrypt' ? shift : (-shift);
+  const correctedShift = mode === 'encode' ? shift : (-shift);
   const length = source.length;
   let result = '';
 
