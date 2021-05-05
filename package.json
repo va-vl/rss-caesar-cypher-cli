@@ -14,12 +14,17 @@
     "rolling",
     "scopes",
     "school",
-    "node"
+    "node",
+    "cli"
   ],
   "author": "va-z",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/va-z/rss-caesar-cypher-cli/issues"
   },
-  "homepage": "https://github.com/va-z/rss-caesar-cypher-cli#readme"
+  "homepage": "https://github.com/va-z/rss-caesar-cypher-cli#readme",
+  "devDependencies": {
+    "boxen": "^5.0.1",
+    "chalk": "^4.1.1"
+  }
 }
