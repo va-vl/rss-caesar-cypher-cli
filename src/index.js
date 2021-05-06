@@ -1,12 +1,8 @@
-const { cypher } = require('./model');
-const { greeting } = require('./view');
+const { pipeline } = require('stream');
+const { fs } = require('fs');
+//
+const { cypher } = require('./encryption');
+const display = require('./display');
+const optionsParser = require('./options');
 
-const caesarCypherCli = () => {
-  greeting.showGreeting();
-
-  console.log(cypher('This is secret. Message about "_" symbol!', -1, 'encode'));
-}
-
-module.exports = {
-  caesarCypherCli
-};
+display.displayGreeting();

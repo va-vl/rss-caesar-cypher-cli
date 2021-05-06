@@ -35,10 +35,10 @@ const getNewCharacter = (character, shift) => {
  */
 const cypher = (source, shift, mode) => {
   const correctedShift = mode === 'encode' ? shift : (-shift);
-  const length = source.length;
+  const sourceLength = source.length;
   let result = '';
 
-  for (let i = 0; i < length; i += 1) {
+  for (let i = 0; i < sourceLength; i += 1) {
     result += getNewCharacter(source[i], correctedShift);
   }
 
