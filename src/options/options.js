@@ -1,25 +1,45 @@
 const { program } = require('commander');
-const chalk = require('chalk');
+//
+const {
+  validateAction,
+  validateShift,
+  validateInputOutput
+} = require('./validators');
 
-const options = program
-  .option('-s, --shift <number>', 'cypher shift (required)')
-  .option('-a, --action <type>', '"encode" or "decode" (required)')
-  .option('-i, --input [path|text|none]', 'text or path to a text file')
-  .option('-o, --output [path|none]', 'path to a text file')
+let options = program
+  .option('-s|--shift <integer>', 'cypher shift (required)')
+  .option('-a|--action <string>', '"encode" or "decode" (required)')
+  .option('-i|--input [string]', 'path to a text file')
+  .option('-o|--output [string]', 'path to a text file')
   .addHelpText('afterAll', 'Passing unspecified options will result in an error!')
-  .addHelpText('afterAll', chalk`
-Example: {magenta cypher red -s 1 red -a encrypt -i input.txt -o output.txt}`);
+  .addHelpText('afterAll', `Example: {magenta cypher red -s 1 red -a encrypt -i input.txt -o output.txt}`)
+  .parse();
 
-const getOptions = () => options.parse().opts();
+const validateOptions = () => {
+  const { shift, action, input, output } = options.opts();
 
-const validateOptions = (args) => {
-  const { shift, action, input, output } = args;
+  try {
+    validateShift(shift);
+    validateAction(action);
+    validateInputOutput(input);
+    validateInputOutput(output);
+  } catch(err) {
+    console.error(err.message);
+  }
+};
 
-  console.log('hello world')
-}
+const parseOptions = () => {
+  const { shift, action, input, output } = options.opts();
+
+  return ({
+    shift: parseInt(shift),
+    action,
+    input,
+    output
+  });
+};
 
 module.exports = {
-  options,
-  getOptions,
+  parseOptions,
   validateOptions,
 };

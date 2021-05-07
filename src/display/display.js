@@ -14,19 +14,30 @@ Enter {green cypher --help} to see help.`;
 const greetingOptionsBoxen = config.getOptionsBoxen({
   align: 'center',
   borderColor: 'magenta',
+  margin: 1,
 });
 
 const greeting = boxen(greetingText, greetingOptionsBoxen);
 
-const displayGreeting = () => {
+const errorOptionsBoxen = config.getOptionsBoxen({
+  align: 'left',
+  borderColor: 'red',
+});
+
+const showGreeting = () => {
   process.stdout.write(greeting);
 };
 
-const displayError = ({ message, code}) => {
-  console.log(message, code);
+const showError = ({ message }) => {
+  const errorMessage = boxen(
+    chalk.red(message),
+    errorOptionsBoxen,
+  );
+
+  process.stderr.write(errorMessage);
 }
 
 module.exports = {
-  displayGreeting,
-  displayError,
+  showGreeting,
+  showError,
 }

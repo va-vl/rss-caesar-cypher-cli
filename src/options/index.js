@@ -1,5 +1,9 @@
-const args = require('./options');
+const {
+  parseOptions,
+  validateOptions,
+} = require('./options');
 
 module.exports = {
-  ...args,
-}
+  parseOptions,
+  validateOptions,
+};

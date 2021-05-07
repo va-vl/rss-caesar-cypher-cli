@@ -1,8 +1,16 @@
 const { pipeline } = require('stream');
-const { fs } = require('fs');
 //
-const { cypher } = require('./encryption');
-const display = require('./display');
-const optionsParser = require('./options');
+const { inputStream, transformStream, outputStream } = require('./app-streams');
 
-display.displayGreeting();
+pipeline(
+  inputStream(),
+  transformStream(),
+  outputStream(),
+  (err, val) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(val);
+    }
+  },
+)
