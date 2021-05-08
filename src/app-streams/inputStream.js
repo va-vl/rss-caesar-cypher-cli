@@ -3,6 +3,8 @@ const fs = require('fs');
 const { validateOptions, parseOptions } = require('../options');
 const display = require('../display');
 
+const { input } = parseOptions();
+
 const inputStream = () => {
   try {
     validateOptions();
@@ -14,8 +16,6 @@ const inputStream = () => {
       throw err;
     }
   }
-
-  const { input } = parseOptions();
 
   return input ? fs.createReadStream(input) : process.stdin;
 }

@@ -1,6 +1,9 @@
 const { pipeline } = require('stream');
 //
+const { showGreeting } = require('./display');
 const { inputStream, transformStream, outputStream } = require('./app-streams');
+
+showGreeting();
 
 pipeline(
   inputStream(),
