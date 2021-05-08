@@ -39,13 +39,13 @@ const validateAction = (value) => {
   }
 };
 
-const validateInputOutput = (path) => {
+const validateInputOutput = (name, path) => {
   if (path === undefined) {
     return;
   }
 
   if (path === true) {
-    throw new ArgumentValueError('input', path);
+    throw new ArgumentValueError(name, path);
   }
 
   try {
@@ -55,10 +55,13 @@ const validateInputOutput = (path) => {
   }
 
   try {
-    fs.accessSync(path, fs.constants.R_OK);
-    fs.accessSync(path, fs.constants.W_OK);
+    fs.accessSync(path, fs.constants.R_OK && fs.constants.W_OK);
   } catch {
     throw new FileAccessError(path);
+  }
+
+  if (fs.statSync(path).isDirectory()) {
+    throw new ArgumentValueError(name, 'directory path');
   }
 };
 

@@ -6,7 +6,7 @@ const {
   validateInputOutput
 } = require('./validators');
 
-let options = program
+const options = program
   .option('-s|--shift <integer>', 'cypher shift (required)')
   .option('-a|--action <string>', '"encode" or "decode" (required)')
   .option('-i|--input [string]', 'path to a text file')
@@ -18,15 +18,13 @@ let options = program
 const validateOptions = () => {
   const { shift, action, input, output } = options.opts();
 
-  try {
-    validateShift(shift);
-    validateAction(action);
-    validateInputOutput(input);
-    validateInputOutput(output);
-  } catch(err) {
-    console.error(err.message);
-  }
+  validateShift(shift);
+  validateAction(action);
+  validateInputOutput('input', input);
+  validateInputOutput('output', output);
 };
+
+const getPathString = (val) => typeof val === 'string' ? val : null;
 
 const parseOptions = () => {
   const { shift, action, input, output } = options.opts();
@@ -34,8 +32,8 @@ const parseOptions = () => {
   return ({
     shift: parseInt(shift),
     action,
-    input,
-    output
+    input: getPathString(input),
+    output: getPathString(output),
   });
 };
 

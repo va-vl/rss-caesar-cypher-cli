@@ -3,8 +3,8 @@ const { ArgumentError } = require('./ArgumentError');
 const expectedValues = {
   'shift': 'integer',
   'action': '"encoded" or "decoded"',
-  'input': 'path string',
-  'output': 'path string',
+  'input': 'file path',
+  'output': 'file path',
 };
 
 const fixValue = (value) => value === true ? 'nothing' : value;
@@ -16,7 +16,7 @@ class ArgumentValueError extends ArgumentError {
    */
   constructor(argument, value) {
     super(
-      `Invalid --${argument} value: ${fixValue(value)} provided, ${expectedValues[argument]} expected`
+      `Invalid --${argument} value: ${fixValue(value)} provided, ${expectedValues[argument]} expected!`
     );
   }
 }

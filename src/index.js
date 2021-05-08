@@ -7,6 +7,8 @@ pipeline(
   transformStream(),
   outputStream(),
   (err, val) => {
+    console.log('asdfasdf');
+
     if (err) {
       console.log(err);
     } else {

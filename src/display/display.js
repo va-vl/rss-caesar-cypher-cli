@@ -19,8 +19,11 @@ const greetingOptionsBoxen = config.getOptionsBoxen({
 
 const greeting = boxen(greetingText, greetingOptionsBoxen);
 
+const getErrorText = (message) => chalk`{red ${message}}
+
+{green cypher --help} for help.`;
+
 const errorOptionsBoxen = config.getOptionsBoxen({
-  align: 'left',
   borderColor: 'red',
 });
 
@@ -30,7 +33,7 @@ const showGreeting = () => {
 
 const showError = ({ message }) => {
   const errorMessage = boxen(
-    chalk.red(message),
+    getErrorText(message),
     errorOptionsBoxen,
   );
 
