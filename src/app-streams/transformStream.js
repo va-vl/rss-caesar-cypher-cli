@@ -6,11 +6,10 @@ const { cypher } = require('./../cypher');
 
 const { shift, action, output } = parseOptions();
 
-
 class CaesarTransform extends Transform {
   _transform(chunk, _, cb) {
-    const str = chunk.toString('utf-8');
-    let result = cypher(str, shift, action);
+    const str = chunk.toString();
+    const result = cypher(str, shift, action);
 
     this.push(result);
     cb();

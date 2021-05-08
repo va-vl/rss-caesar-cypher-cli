@@ -2,11 +2,11 @@ const fs = require('fs');
 //
 const { parseOptions } = require('./../options');
 
-const { output } = parseOptions();
-
-console.log(output);
+const { input, output } = parseOptions();
 
 const outputStream = () => {
+  console.log(input);
+
   return output
     ? fs.createWriteStream(output, { flags: 'a' })
     : process.stdout;
