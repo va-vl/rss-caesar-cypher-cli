@@ -1,7 +1,4 @@
-const {
-  parseOptions,
-  validateOptions,
-} = require('./options');
+const { parseOptions, validateOptions } = require('./options');
 
 module.exports = {
   parseOptions,

@@ -11,13 +11,14 @@ const errorOptionsBoxen = config.getOptionsBoxen({
   borderColor: 'red',
 });
 
-const showError = ({ message }) => {
+const showError = (message, code = 10) => {
   const errorMessage = boxen(
     getErrorText(message),
     errorOptionsBoxen,
   );
 
   process.stderr.write(errorMessage);
+  process.exit(code);
 };
 
 module.exports = {

@@ -1,20 +1,36 @@
 const fs = require('fs');
 //
-const { validateOptions, parseOptions } = require('../options');
-const { showGreeting } = require('../display');
+const { parseOptions } = require('../options');
+const {
+  showFileMissingError,
+  showFileAccessError,
+  showArgumentValueError,
+} = require('../errors');
 
-const { input, output } = parseOptions();
+const { input } = parseOptions();
 
 const inputStream = () => {
-  validateOptions();
-
-  if (input) {
-    return fs.createReadStream(input);
+  if (!input) {
+    return process.stdin;
   }
 
-  showGreeting(output);
+  const stream = fs.createReadStream(input);
 
-  return process.stdin;
+  stream.on('error', (err) => {
+    if (err.code === 'ENOENT') {
+      showFileMissingError('input', input);
+    }
+
+    if (err.code === 'EPERM') {
+      showFileAccessError('input', input);
+    }
+
+    if (err.code === 'EISDIR') {
+      showArgumentValueError('input', 'directory');
+    }
+  });
+
+  return stream;
 };
 
 module.exports = {

@@ -1,7 +1,14 @@
 const { pipeline } = require('stream');
 //
-const { showError } = require('./display');
+const { validateOptions, parseOptions } = require('./options');
+const { showError, showGreeting } = require('./display');
 const { inputStream, transformStream, outputStream } = require('./app-streams');
+
+validateOptions();
+
+if (!(parseOptions().input)) {
+  showGreeting();
+}
 
 pipeline(
   inputStream(),
@@ -9,8 +16,7 @@ pipeline(
   outputStream(),
   (err) => {
     if (err) {
-      showError(err);
-      process.exit(10);
+      showError(err.message);
     }
   },
 );

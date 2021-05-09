@@ -1,11 +1,3 @@
-const { ArgumentMissingError } = require('./ArgumentMissingError');
-const { ArgumentValueError } = require('./ArgumentValueError');
-const { FileAccessError } = require('./FileAccessError');
-const { FileMissingError } = require('./FileMissingError');
+const errors = require('./errors');
 
-module.exports = {
-  ArgumentMissingError,
-  ArgumentValueError,
-  FileAccessError,
-  FileMissingError,
-};
+module.exports = errors;

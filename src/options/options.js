@@ -1,10 +1,12 @@
 const { program } = require('commander');
+const path = require('path');
 //
 const {
-  validateAction,
   validateShift,
-  validateInputOutput,
-} = require('./validators');
+  validateAction,
+  validateInput,
+  validateOutput,
+} = require('./validateOptions');
 
 const options = program
   .option('-s, --shift <integer>', 'cypher shift')
@@ -24,18 +26,15 @@ const validateOptions = () => {
     shift, action, input, output,
   } = options.opts();
 
-  try {
-    validateShift(shift);
-    validateAction(action);
-    validateInputOutput('input', input);
-    validateInputOutput('output', output);
-  } catch (err) {
-    process.stderr.write(err.message);
-    process.exit(9);
-  }
+  validateShift(shift);
+  validateAction(action);
+  validateInput(input);
+  validateOutput(output);
 };
 
-const getPathString = (val) => (typeof val === 'string' ? val : null);
+const getPathString = (val) => (typeof val === 'string'
+  ? path.normalize(val)
+  : null);
 
 const parseOptions = () => {
   const {

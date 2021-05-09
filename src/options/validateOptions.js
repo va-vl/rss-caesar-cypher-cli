@@ -1,10 +1,9 @@
 const fs = require('fs');
 //
 const {
-  ArgumentMissingError,
-  ArgumentValueError,
-  FileAccessError,
-  FileMissingError,
+  showArgumentValueError,
+  showArgumentMissingError,
+  showFileMissingError,
 } = require('../errors');
 
 /**
@@ -13,7 +12,7 @@ const {
  */
 const validateRequiredArgument = (name, value) => {
   if (value === undefined || value === 'true') {
-    throw new ArgumentMissingError(name);
+    showArgumentMissingError(name);
   }
 };
 
@@ -24,7 +23,7 @@ const validateShift = (value) => {
   validateRequiredArgument('shift', value);
 
   if (parseInt(value, 10) !== Number(value)) {
-    throw new ArgumentValueError('shift', value);
+    showArgumentValueError('shift', value);
   }
 };
 
@@ -35,38 +34,42 @@ const validateAction = (value) => {
   validateRequiredArgument('action', value);
 
   if (value !== 'encode' && value !== 'decode') {
-    throw new ArgumentValueError('action', value);
+    showArgumentValueError('action', value);
   }
 };
 
-const validateInputOutput = (name, path) => {
+/**
+ * @param {String} path
+ */
+const validateInput = (path) => {
   if (path === undefined) {
     return;
   }
 
   if (path === true) {
-    throw new ArgumentValueError(name, path);
+    showArgumentValueError('input', path);
+  }
+};
+
+const validateOutput = (path) => {
+  if (path === undefined) {
+    return;
+  }
+
+  if (path === true) {
+    showArgumentValueError('output', path);
   }
 
   try {
     fs.accessSync(path, fs.constants.F_OK);
   } catch {
-    throw new FileMissingError(path);
-  }
-
-  try {
-    fs.accessSync(path, fs.constants.R_OK && fs.constants.W_OK);
-  } catch {
-    throw new FileAccessError(path);
-  }
-
-  if (fs.statSync(path).isDirectory()) {
-    throw new ArgumentValueError(name, 'directory path');
+    showFileMissingError('output', path);
   }
 };
 
 module.exports = {
   validateShift,
   validateAction,
-  validateInputOutput,
+  validateInput,
+  validateOutput,
 };
