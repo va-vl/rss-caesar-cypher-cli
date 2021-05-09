@@ -1,10 +1,11 @@
-const package = require('../../package.json');
+const pkg = require('../../package.json');
 
 const optionsBoxenBase = {
   align: 'center',
+  padding: 1,
+  margin: 1,
   borderColor: 'green',
   borderStyle: 'double',
-  padding: 1,
 };
 
 /**
@@ -13,10 +14,10 @@ const optionsBoxenBase = {
  */
 const getOptionsBoxen = (config) => ({
   ...optionsBoxenBase,
-  ...config
+  ...config,
 });
 
-const getVersion = () => package.version;
+const getVersion = () => pkg.version;
 
 const getUserName = () => process.env.USERNAME || 'user';
 
@@ -24,4 +25,4 @@ module.exports = {
   getOptionsBoxen,
   getVersion,
   getUserName,
-}
+};

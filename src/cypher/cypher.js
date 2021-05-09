@@ -11,8 +11,11 @@ const CODE_POINT_RANGES = [
  */
 const getNewCharacter = (character, shift) => {
   const code = character.codePointAt(0);
-  const range = CODE_POINT_RANGES.reduce((acc, [min, max]) =>
-    ((code >= min) && (code <= max)) ? ([min, max]) : acc,
+  const range = CODE_POINT_RANGES.reduce((acc, [min, max]) => (
+    ((code >= min) && (code <= max))
+      ? [min, max]
+      : acc
+  ),
   null);
 
   if (range === null) {

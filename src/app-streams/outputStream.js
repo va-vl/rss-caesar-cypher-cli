@@ -1,17 +1,13 @@
 const fs = require('fs');
 //
-const { parseOptions } = require('./../options');
+const { parseOptions } = require('../options');
 
-const { input, output } = parseOptions();
+const { output } = parseOptions();
 
-const outputStream = () => {
-  console.log(input);
-
-  return output
-    ? fs.createWriteStream(output, { flags: 'a' })
-    : process.stdout;
-};
+const outputStream = () => (output
+  ? fs.createWriteStream(output, { flags: 'a' })
+  : process.stdout);
 
 module.exports = {
   outputStream,
-}
+};

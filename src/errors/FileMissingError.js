@@ -1,6 +1,6 @@
 const { ArgumentError } = require('./ArgumentError');
 
-class FileMissingError extends Error {
+class FileMissingError extends ArgumentError {
   /**
    * @param {String} path
    */
@@ -11,4 +11,4 @@ class FileMissingError extends Error {
 
 module.exports = {
   FileMissingError,
-}
+};

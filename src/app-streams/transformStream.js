@@ -1,8 +1,9 @@
+/* eslint-disable no-underscore-dangle */
 const { Transform } = require('stream');
 const { EOL } = require('os');
 //
-const { parseOptions } = require('./../options');
-const { cypher } = require('./../cypher');
+const { parseOptions } = require('../options');
+const { cypher } = require('../cypher');
 
 const { shift, action, output } = parseOptions();
 
@@ -26,4 +27,4 @@ const transformStream = () => new CaesarTransform();
 
 module.exports = {
   transformStream,
-}
+};

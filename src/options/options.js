@@ -3,34 +3,47 @@ const { program } = require('commander');
 const {
   validateAction,
   validateShift,
-  validateInputOutput
+  validateInputOutput,
 } = require('./validators');
 
 const options = program
-  .option('-s|--shift <integer>', 'cypher shift (required)')
-  .option('-a|--action <string>', '"encode" or "decode" (required)')
-  .option('-i|--input [string]', 'path to a text file')
-  .option('-o|--output [string]', 'path to a text file')
-  .addHelpText('afterAll', 'Passing unspecified options will result in an error!')
-  .addHelpText('afterAll', `Example: {magenta cypher red -s 1 red -a encrypt -i input.txt -o output.txt}`)
+  .option('-s, --shift <integer>', 'cypher shift')
+  .option('-a, --action <string>', '"encode" or "decode"')
+  .option('-i, --input <string>', 'path to a text file')
+  .option('-o, --output <string>', 'path to a text file')
+  .name('node .')
+  .usage('[options]')
+  .addHelpText('afterAll', `
+Passing unspecified options will result in an error!`)
+  .addHelpText('afterAll', `
+Example: node . -s 1 -a encode -i input.txt -o output.txt`)
   .parse();
 
 const validateOptions = () => {
-  const { shift, action, input, output } = options.opts();
+  const {
+    shift, action, input, output,
+  } = options.opts();
 
-  validateShift(shift);
-  validateAction(action);
-  validateInputOutput('input', input);
-  validateInputOutput('output', output);
+  try {
+    validateShift(shift);
+    validateAction(action);
+    validateInputOutput('input', input);
+    validateInputOutput('output', output);
+  } catch (err) {
+    process.stderr.write(err.message);
+    process.exit(9);
+  }
 };
 
-const getPathString = (val) => typeof val === 'string' ? val : null;
+const getPathString = (val) => (typeof val === 'string' ? val : null);
 
 const parseOptions = () => {
-  const { shift, action, input, output } = options.opts();
+  const {
+    shift, action, input, output,
+  } = options.opts();
 
   return ({
-    shift: parseInt(shift),
+    shift: parseInt(shift, 10),
     action,
     input: getPathString(input),
     output: getPathString(output),

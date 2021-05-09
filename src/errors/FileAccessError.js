@@ -1,6 +1,6 @@
 const { ArgumentError } = require('./ArgumentError');
 
-class FileAccessError extends Error {
+class FileAccessError extends ArgumentError {
   /**
    * @param {String} path
    */
@@ -11,5 +11,4 @@ class FileAccessError extends Error {
 
 module.exports = {
   FileAccessError,
-}
-
+};

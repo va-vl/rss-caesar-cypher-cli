@@ -4,8 +4,8 @@ const {
   ArgumentMissingError,
   ArgumentValueError,
   FileAccessError,
-  FileMissingError
-} = require('./../errors');
+  FileMissingError,
+} = require('../errors');
 
 /**
  * @param {String} name
@@ -15,7 +15,7 @@ const validateRequiredArgument = (name, value) => {
   if (value === undefined || value === 'true') {
     throw new ArgumentMissingError(name);
   }
-}
+};
 
 /**
  * @param {*} value
@@ -23,7 +23,7 @@ const validateRequiredArgument = (name, value) => {
 const validateShift = (value) => {
   validateRequiredArgument('shift', value);
 
-  if (parseInt(value) !== Number(value)) {
+  if (parseInt(value, 10) !== Number(value)) {
     throw new ArgumentValueError('shift', value);
   }
 };
@@ -69,4 +69,4 @@ module.exports = {
   validateShift,
   validateAction,
   validateInputOutput,
-}
+};

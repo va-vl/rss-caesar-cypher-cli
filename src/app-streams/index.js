@@ -6,4 +6,4 @@ module.exports = {
   inputStream,
   transformStream,
   outputStream,
-}
+};

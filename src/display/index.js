@@ -1,5 +1,7 @@
-const display = require('./display');
+const { showGreeting } = require('./greeting');
+const { showError } = require('./error');
 
 module.exports = {
-  ...display,
+  showGreeting,
+  showError,
 }
