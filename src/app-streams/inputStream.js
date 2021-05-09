@@ -1,15 +1,12 @@
 const fs = require('fs');
 //
-const { parseOptions } = require('../options');
 const {
   showFileMissingError,
   showFileAccessError,
   showArgumentValueError,
 } = require('../errors');
 
-const { input } = parseOptions();
-
-const inputStream = () => {
+const inputStream = (input) => {
   if (!input) {
     return process.stdin;
   }

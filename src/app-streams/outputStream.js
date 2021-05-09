@@ -1,11 +1,11 @@
 const fs = require('fs');
 //
-const { showFileAccessError, showArgumentValueError } = require('../errors');
-const { parseOptions } = require('../options');
+const {
+  showFileAccessError,
+  showArgumentValueError,
+} = require('../errors');
 
-const { output } = parseOptions();
-
-const outputStream = () => {
+const outputStream = (output) => {
   if (!output) {
     return process.stdout;
   }

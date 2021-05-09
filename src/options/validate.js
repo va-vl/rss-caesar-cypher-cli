@@ -1,9 +1,11 @@
 const fs = require('fs');
+const path = require('path');
 //
 const {
   showArgumentValueError,
   showArgumentMissingError,
   showFileMissingError,
+  showFileSameError,
 } = require('../errors');
 
 /**
@@ -41,29 +43,42 @@ const validateAction = (value) => {
 /**
  * @param {String} path
  */
-const validateInput = (path) => {
-  if (path === undefined) {
+const validateInput = (inputPath) => {
+  if (inputPath === undefined) {
     return;
   }
 
-  if (path === true) {
-    showArgumentValueError('input', path);
+  if (inputPath === true) {
+    showArgumentValueError('input', inputPath);
   }
 };
 
-const validateOutput = (path) => {
-  if (path === undefined) {
+const validateOutput = (outputPath) => {
+  if (outputPath === undefined) {
     return;
   }
 
-  if (path === true) {
-    showArgumentValueError('output', path);
+  if (outputPath === true) {
+    showArgumentValueError('output', outputPath);
   }
 
   try {
-    fs.accessSync(path, fs.constants.F_OK);
+    fs.accessSync(outputPath, fs.constants.F_OK);
   } catch {
-    showFileMissingError('output', path);
+    showFileMissingError('output', outputPath);
+  }
+};
+
+const validateInputOutput = (inputPath, outputPath) => {
+  if (typeof inputPath !== 'string' || typeof outputPath !== 'string') {
+    return;
+  }
+
+  const resolvedInputPath = path.resolve(inputPath);
+  const resolvedOutputPath = path.resolve(outputPath);
+
+  if (resolvedInputPath === resolvedOutputPath) {
+    showFileSameError();
   }
 };
 
@@ -72,4 +87,5 @@ module.exports = {
   validateAction,
   validateInput,
   validateOutput,
+  validateInputOutput,
 };

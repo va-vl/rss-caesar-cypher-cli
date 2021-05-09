@@ -2,29 +2,36 @@
 const { Transform } = require('stream');
 const { EOL } = require('os');
 //
-const { parseOptions } = require('../options');
 const { cypher } = require('../cypher');
 
-const { shift, action, output } = parseOptions();
+class TransformStream extends Transform {
+  /**
+   * @param {Number} shift
+   * @param {String} action
+   * @param {String | null} output
+   */
+  constructor(shift, action, output) {
+    super();
+    this.shift = shift;
+    this.action = action;
+    this.output = output;
+  }
 
-class CaesarTransform extends Transform {
   _transform(chunk, _, cb) {
     const str = chunk.toString();
-    const result = cypher(str, shift, action);
+    const result = cypher(str, this.shift, this.action);
 
     this.push(result);
     cb();
   }
 
   _final() {
-    if (output) {
+    if (this.output) {
       this.push(EOL);
     }
   }
 }
 
-const transformStream = () => new CaesarTransform();
-
 module.exports = {
-  transformStream,
+  TransformStream,
 };

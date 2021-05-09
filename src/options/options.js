@@ -6,7 +6,8 @@ const {
   validateAction,
   validateInput,
   validateOutput,
-} = require('./validateOptions');
+  validateInputOutput,
+} = require('./validate');
 
 const options = program
   .option('-s, --shift <integer>', 'cypher shift')
@@ -30,6 +31,7 @@ const validateOptions = () => {
   validateAction(action);
   validateInput(input);
   validateOutput(output);
+  validateInputOutput(input, output);
 };
 
 const getPathString = (val) => (typeof val === 'string'

@@ -43,9 +43,14 @@ const showFileAccessError = (argument, path) => {
   showError(`The ${argument} file ${path} cannot be accessed!`, 9);
 };
 
+const showFileSameError = () => {
+  showError('Input and output paths cannot lead to the same file!', 9);
+};
+
 module.exports = {
   showArgumentValueError,
   showArgumentMissingError,
   showFileMissingError,
   showFileAccessError,
+  showFileSameError,
 };
