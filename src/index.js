@@ -2,7 +2,7 @@ const { pipeline } = require('stream');
 //
 const { validateOptions, parseOptions } = require('./options');
 const { showError, showGreeting } = require('./display');
-const { inputStream, outputStream, TransformStream } = require('./app-streams');
+const { inputStream, outputStream, TransformStream } = require('./streams');
 
 validateOptions();
 

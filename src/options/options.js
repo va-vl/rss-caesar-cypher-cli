@@ -1,12 +1,13 @@
 const { program } = require('commander');
 const path = require('path');
+const chalk = require('chalk');
 //
 const {
   validateShift,
   validateAction,
   validateInput,
   validateOutput,
-  validateInputOutput,
+  validateSameInputOutput,
 } = require('./validate');
 
 const options = program
@@ -16,10 +17,10 @@ const options = program
   .option('-o, --output <string>', 'path to a text file')
   .name('node .')
   .usage('[options]')
+  .addHelpText('after', chalk`
+Example: {green $ node .} {red -s 1 -a encode} -i input.txt -o output.txt`)
   .addHelpText('afterAll', `
 Passing unspecified options will result in an error!`)
-  .addHelpText('afterAll', `
-Example: node . -s 1 -a encode -i input.txt -o output.txt`)
   .parse();
 
 const validateOptions = () => {
@@ -31,7 +32,7 @@ const validateOptions = () => {
   validateAction(action);
   validateInput(input);
   validateOutput(output);
-  validateInputOutput(input, output);
+  validateSameInputOutput(input, output);
 };
 
 const getPathString = (val) => (typeof val === 'string'

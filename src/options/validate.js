@@ -69,7 +69,7 @@ const validateOutput = (outputPath) => {
   }
 };
 
-const validateInputOutput = (inputPath, outputPath) => {
+const validateSameInputOutput = (inputPath, outputPath) => {
   if (typeof inputPath !== 'string' || typeof outputPath !== 'string') {
     return;
   }
@@ -87,5 +87,5 @@ module.exports = {
   validateAction,
   validateInput,
   validateOutput,
-  validateInputOutput,
+  validateSameInputOutput,
 };
