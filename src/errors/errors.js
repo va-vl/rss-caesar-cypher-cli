@@ -2,7 +2,7 @@ const { showError } = require('../display');
 
 const expectedValues = {
   shift: 'integer',
-  action: '"encoded" or "decoded"',
+  action: '"encode" or "decode"',
   input: 'file path',
   output: 'file path',
 };

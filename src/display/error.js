@@ -21,6 +21,16 @@ const showError = (message, code = 10) => {
   process.exit(code);
 };
 
+const getErrorString = (str) => {
+  const errorString = str[0].toUpperCase() + str.slice(1);
+
+  return boxen(
+    getErrorText(errorString),
+    errorOptionsBoxen,
+  );
+};
+
 module.exports = {
   showError,
+  getErrorString,
 };

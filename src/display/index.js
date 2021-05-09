@@ -1,7 +1,7 @@
-const { showGreeting } = require('./greeting');
-const { showError } = require('./error');
+const greeting = require('./greeting');
+const error = require('./error');
 
 module.exports = {
-  showGreeting,
-  showError,
-}
+  ...greeting,
+  ...error,
+};

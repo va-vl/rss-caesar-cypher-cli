@@ -2,6 +2,7 @@ const { program } = require('commander');
 const path = require('path');
 const chalk = require('chalk');
 //
+const { getErrorString } = require('../display');
 const {
   validateShift,
   validateAction,
@@ -11,8 +12,11 @@ const {
 } = require('./validate');
 
 const options = program
-  .option('-s, --shift <integer>', 'cypher shift')
-  .option('-a, --action <string>', '"encode" or "decode"')
+  .configureOutput({
+    outputError: (str, write) => write(getErrorString(str)),
+  })
+  .requiredOption('-s, --shift <integer>', 'cypher shift')
+  .requiredOption('-a, --action <string>', '"encode" or "decode"')
   .option('-i, --input <string>', 'path to a text file')
   .option('-o, --output <string>', 'path to a text file')
   .name('node .')
