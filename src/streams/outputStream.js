@@ -3,7 +3,7 @@ const fs = require('fs');
 const {
   showFileAccessError,
   showArgumentValueError,
-} = require('../errors');
+} = require('../error');
 
 const outputStream = (output) => {
   if (!output) {

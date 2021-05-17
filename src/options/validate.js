@@ -6,7 +6,7 @@ const {
   showArgumentMissingError,
   showFileMissingError,
   showFileSameError,
-} = require('../errors');
+} = require('../error');
 
 /**
  * @param {String} name

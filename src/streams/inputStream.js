@@ -4,7 +4,7 @@ const {
   showFileMissingError,
   showFileAccessError,
   showArgumentValueError,
-} = require('../errors');
+} = require('../error');
 
 const inputStream = (input) => {
   if (!input) {

@@ -1,4 +1,4 @@
-const { showError } = require('../display');
+const { showError } = require('./showError');
 
 const expectedValues = {
   shift: 'integer',
