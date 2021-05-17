@@ -1,0 +1,39 @@
+{
+  "name": "rss-caesar-cypher-cli",
+  "version": "1.0.0",
+  "description": "a cli for encrypting/decrypting strings in english",
+  "main": "./src/index.js",
+  "bin": {
+    "cypher": "./bin/rss-caesar-cypher.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/va-z/rss-caesar-cypher-cli.git"
+  },
+  "keywords": [
+    "rolling",
+    "scopes",
+    "school",
+    "node",
+    "cli"
+  ],
+  "author": "va-z",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/va-z/rss-caesar-cypher-cli/issues"
+  },
+  "homepage": "https://github.com/va-z/rss-caesar-cypher-cli#readme",
+  "dependencies": {
+    "boxen": "^5.0.1",
+    "chalk": "^4.1.1",
+    "commander": "^7.2.0"
+  },
+  "devDependencies": {
+    "eslint": "^7.26.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.22.1"
+  }
+}
