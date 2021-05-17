@@ -1,65 +1,35 @@
 const fs = require('fs');
-const path = require('path');
 //
 const {
   showArgumentValueError,
-  showArgumentMissingError,
   showFileMissingError,
   showFileSameError,
 } = require('../error');
 
 /**
- * @param {String} name
- * @param {*} value
- */
-const validateRequiredArgument = (name, value) => {
-  if (value === undefined || value === 'true') {
-    showArgumentMissingError(name);
-  }
-};
-
-/**
- * @param {*} value
+ * @param {Number} value
  */
 const validateShift = (value) => {
-  validateRequiredArgument('shift', value);
-
-  if (parseInt(value, 10) !== Number(value)) {
+  if (!Number.isInteger(value)) {
     showArgumentValueError('shift', value);
   }
 };
 
 /**
- * @param {*} value
+ * @param {String} value
  */
 const validateAction = (value) => {
-  validateRequiredArgument('action', value);
-
   if (value !== 'encode' && value !== 'decode') {
     showArgumentValueError('action', value);
   }
 };
 
 /**
- * @param {String} path
+ * @param {String} outputPath
  */
-const validateInput = (inputPath) => {
-  if (inputPath === undefined) {
-    return;
-  }
-
-  if (inputPath === true) {
-    showArgumentValueError('input', inputPath);
-  }
-};
-
 const validateOutput = (outputPath) => {
-  if (outputPath === undefined) {
+  if (outputPath === null) {
     return;
-  }
-
-  if (outputPath === true) {
-    showArgumentValueError('output', outputPath);
   }
 
   try {
@@ -69,23 +39,36 @@ const validateOutput = (outputPath) => {
   }
 };
 
+/**
+ * @param {String} inputPath
+ * @param {String} outputPath
+ */
 const validateSameInputOutput = (inputPath, outputPath) => {
-  if (typeof inputPath !== 'string' || typeof outputPath !== 'string') {
+  if (inputPath === null || outputPath === null) {
     return;
   }
 
-  const resolvedInputPath = path.resolve(inputPath);
-  const resolvedOutputPath = path.resolve(outputPath);
-
-  if (resolvedInputPath === resolvedOutputPath) {
+  if (inputPath === outputPath) {
     showFileSameError();
   }
 };
 
+/**
+ * @param {Object} options
+ * @param {Number} options.shift
+ * @param {*} options.action
+ * @param {String|null} options.input
+ * @param {String|null} options.output
+ */
+const validateOptions = ({
+  shift, action, input, output,
+}) => {
+  validateShift(shift);
+  validateAction(action);
+  validateOutput(output);
+  validateSameInputOutput(input, output);
+};
+
 module.exports = {
-  validateShift,
-  validateAction,
-  validateInput,
-  validateOutput,
-  validateSameInputOutput,
+  validateOptions,
 };

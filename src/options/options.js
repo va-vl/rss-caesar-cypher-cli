@@ -3,17 +3,11 @@ const path = require('path');
 const chalk = require('chalk');
 //
 const { createErrorText } = require('../error');
-const {
-  validateShift,
-  validateAction,
-  validateInput,
-  validateOutput,
-  validateSameInputOutput,
-} = require('./validate');
+const { validateOptions } = require('./validate');
 
-const options = program
+const commanderOptions = program
   .configureOutput({
-    outputError: (str, write) => write(createErrorText(str)),
+    outputError: (str, write) => write(createErrorText(str, true)),
   })
   .requiredOption('-s, --shift <integer>', 'cypher shift')
   .requiredOption('-a, --action <string>', '"encode" or "decode"')
@@ -27,36 +21,21 @@ Example: {green $ node .} {red -s 1 -a encode} -i input.txt -o output.txt`)
 Passing unspecified options will result in an error!`)
   .parse();
 
-const validateOptions = () => {
-  const {
-    shift, action, input, output,
-  } = options.opts();
-
-  validateShift(shift);
-  validateAction(action);
-  validateInput(input);
-  validateOutput(output);
-  validateSameInputOutput(input, output);
-};
+const {
+  shift, action, input, output,
+} = commanderOptions.opts();
 
 const getPathString = (val) => (typeof val === 'string'
   ? path.normalize(val)
   : null);
 
-const parseOptions = () => {
-  const {
-    shift, action, input, output,
-  } = options.opts();
-
-  return ({
-    shift: parseInt(shift, 10),
-    action,
-    input: getPathString(input),
-    output: getPathString(output),
-  });
+const options = {
+  shift: parseFloat(shift),
+  action,
+  input: getPathString(input),
+  output: getPathString(output),
 };
 
-module.exports = {
-  parseOptions,
-  validateOptions,
-};
+validateOptions(options);
+
+module.exports = { options };

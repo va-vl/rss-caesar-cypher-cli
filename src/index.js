@@ -1,18 +1,21 @@
 const { pipeline } = require('stream');
 //
-const { validateOptions, parseOptions } = require('./options');
+const { options } = require('./options');
 const { showGreeting } = require('./greeting');
 const { showError } = require('./error');
 const { inputStream, outputStream, TransformStream } = require('./streams');
 
-validateOptions();
-
 const {
   shift, action, input, output,
-} = parseOptions();
+} = options;
 
 if (!input) {
   showGreeting();
+}
+
+if (input && output) {
+  // TODO: showGreeting(input, output) outside of if clauses, remove both if clauses
+  console.log('Successful with input and output files');
 }
 
 pipeline(

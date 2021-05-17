@@ -24,7 +24,7 @@ class TransformStream extends Transform {
 
     if (!this.output) {
       process.stdout.write(
-        chalk.yellow('Your output: '),
+        chalk.yellow('Cypher result: '),
       );
     }
 
