@@ -9,14 +9,7 @@ const {
   shift, action, input, output,
 } = options;
 
-if (!input) {
-  showGreeting();
-}
-
-if (input && output) {
-  // TODO: showGreeting(input, output) outside of if clauses, remove both if clauses
-  console.log('Successful with input and output files');
-}
+showGreeting(input, output);
 
 pipeline(
   inputStream(input),
