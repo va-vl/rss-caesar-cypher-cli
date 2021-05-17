@@ -1,4 +1,5 @@
 const fs = require('fs');
+const chalk = require('chalk');
 //
 const {
   showFileMissingError,
@@ -6,9 +7,17 @@ const {
   showArgumentValueError,
 } = require('../error');
 
+const writeYourInput = () => process.stdout.write(
+  chalk.greenBright('Your input: '),
+);
+
 const inputStream = (input) => {
   if (!input) {
-    return process.stdin;
+    writeYourInput();
+
+    return process.stdin.on('data', () => {
+      setImmediate(writeYourInput);
+    });
   }
 
   const stream = fs.createReadStream(input);

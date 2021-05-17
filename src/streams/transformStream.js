@@ -1,6 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 const { Transform } = require('stream');
 const { EOL } = require('os');
+const chalk = require('chalk');
 //
 const { cypher } = require('../cypher');
 
@@ -20,6 +21,12 @@ class TransformStream extends Transform {
   _transform(chunk, _, cb) {
     const str = chunk.toString();
     const result = cypher(str, this.shift, this.action);
+
+    if (!this.output) {
+      process.stdout.write(
+        chalk.yellow('Your output: '),
+      );
+    }
 
     this.push(result);
     cb();

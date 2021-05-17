@@ -12,6 +12,7 @@ made by va-z for RSS Node.js 2021Q2
 {bold.red Hello, ${config.userName}!}
 
 This tool runs the Caesar Cipher algorithm on the provided input.
+
 No input file provided, running in {bold.red stdin} mode.
 
 Input your text into the terminal. ${isOutput ? isOutputText : noOutputText}`;

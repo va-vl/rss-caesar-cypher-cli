@@ -2,7 +2,6 @@ const pkg = require('../../package.json');
 
 const { version } = pkg;
 const userName = process.env.USERNAME || 'user';
-
 const optionsBoxenBase = {
   align: 'center',
   padding: 1,
