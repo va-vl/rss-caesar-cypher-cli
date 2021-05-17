@@ -1,33 +1,32 @@
-const ALPHABET_LENGTH = 26;
-const CODE_POINT_RANGES = [
-  [97, 122],
-  [65, 90],
-];
+const { EN } = require('./langs');
+
+// * This can be expanded to support multiple languages per cypher / language selection
 
 /**
  * @param {String} character
  * @param {Number} shift
- * @returns {Number}
+ * @returns {String}
  */
 const getNewCharacter = (character, shift) => {
-  const code = character.codePointAt(0);
-  const range = CODE_POINT_RANGES.reduce((acc, [min, max]) => (
-    ((code >= min) && (code <= max))
-      ? [min, max]
-      : acc
-  ),
-  null);
+  const range = EN.reduce((acc, alphabet) => {
+    const charIndex = alphabet.indexOf(character);
+
+    return charIndex === -1 ? acc : ({
+      alphabet,
+      charIndex,
+      length: alphabet.length,
+    });
+  }, null);
 
   if (range === null) {
     return character;
   }
 
-  const [min, max] = range;
-  const baseCode = code - min;
-  const baseNewCode = (baseCode + shift) % ALPHABET_LENGTH;
-  const newCode = ((baseNewCode >= 0) ? min : (max + 1)) + baseNewCode;
+  const { alphabet, charIndex, length } = range;
+  const baseNewIndex = (charIndex + shift) % length;
+  const newIndex = baseNewIndex + (baseNewIndex >= 0 ? 0 : length);
 
-  return String.fromCodePoint(newCode);
+  return alphabet[newIndex];
 };
 
 /**
